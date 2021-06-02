@@ -10,6 +10,7 @@ use File;
 class CompaniesController extends Controller
 {
 
+    
     public function index()
     {
         $companies = Companies::all();

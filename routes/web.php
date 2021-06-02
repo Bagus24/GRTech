@@ -11,8 +11,8 @@ Route::get('/', function () {
 });
 
 Auth::routes(['register' => false]);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::middleware('auth')->group(function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('companies', CompaniesController::class);
     Route::resource('employees', EmployeesController::class);
 });
