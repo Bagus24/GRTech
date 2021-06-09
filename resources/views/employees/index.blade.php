@@ -64,6 +64,64 @@
             </div>
         </div>
         @endforeach
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Filter</h3>
+            </div>
+            <form class="form-horizontal" action="{{ url('filter-employee') }}" method="GET">
+                @csrf
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Date Added</label>
+                        <div class="col-sm-10">
+                            <div class="row">
+                                <div class="col-6">
+                                    <input name="date_form" type="date" class="form-control" placeholder="date">
+                                </div>
+                                <div class="col-6">
+                                    <input name="date_to" type="date" class="form-control" placeholder="date">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input name="email" type="email" class="form-control" id="inputPassword3" placeholder="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-2 col-form-label">First Name</label>
+                        <div class="col-sm-10">
+                            <input name="first_name" type="text" class="form-control" id="inputPassword3" placeholder="first name" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-2 col-form-label">Last Name</label>
+                        <div class="col-sm-10">
+                            <input name="last_name" type="text" class="form-control" id="inputPassword3" placeholder="last name" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-2 col-form-label">Company</label>
+                        <div class="col-sm-10">
+                            <select name="company" class="custom-select" required>
+                                @foreach ($companies as $c)
+                                <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary float-right">Filter Data</button>
+                </div>
+                <!-- /.card-footer -->
+            </form>
+
+        </div>
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
@@ -73,7 +131,6 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -272,14 +329,14 @@
                 <div class="col-12 col-sm-6 col-md-12 d-flex align-items-stretch flex-column">
                     <div class="card bg-light d-flex flex-fill">
                         <div class="card-header text-muted border-bottom-0">
-                            
-                           
+
+
                         </div>
                         <div class="card-body pt-0">
                             <div class="row">
                                 <div class="col-7">
                                     <h2 class="lead"><b id="show-company-name"></b></h2>
-                                    
+
                                     <ul class="ml-4 mb-0 fa-ul text-muted">
                                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> <span id="show-company-email"></span></li>
                                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-globe"></i></span> <span id="show-company-website"></span></li>
@@ -290,7 +347,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
 
@@ -359,11 +416,11 @@
             method: "GET",
             success: function(data) {
 
-               document.getElementById('show-company-name').innerHTML = data.name;
-               document.getElementById('show-company-email').innerHTML = data.email;
-               document.getElementById('show-company-website').innerHTML = data.website;
-               document.getElementById('show-company-logo').src = `{{ asset('logo/`+ data.logo +`') }}`;
-               
+                document.getElementById('show-company-name').innerHTML = data.name;
+                document.getElementById('show-company-email').innerHTML = data.email;
+                document.getElementById('show-company-website').innerHTML = data.website;
+                document.getElementById('show-company-logo').src = `{{ asset('logo/` + data.logo + `') }}`;
+
             },
             error: function(data) {
                 console.log(error)

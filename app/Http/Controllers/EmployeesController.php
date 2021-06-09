@@ -8,6 +8,7 @@ use App\Models\Employees;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
+
 class EmployeesController extends Controller
 {
 
@@ -15,6 +16,7 @@ class EmployeesController extends Controller
     {
         $employees = Employees::all();
         $companies = Companies::all();
+        
         return view('employees.index', compact('employees', 'companies'));
     }
 
@@ -98,5 +100,20 @@ class EmployeesController extends Controller
     {
         Employees::findOrFail($id)->delete();
         return redirect('employees')->with('delete_data', 'Success!');
+    }
+
+    public function filter_employee(Request $request)
+    {   
+        $date_form = $request['date_form'];
+        $date_to = $request['date_to'];
+        $employees = Employees::whereBetween('created_at', [$date_form, $date_to])
+        ->orwhere('email', 'like', "%" . $request['email'] . "%")
+        ->orwhere('first_name', 'like', "%" . $request['first_name'] . "%")
+        ->orwhere('last_name', 'like', "%" . $request['last_name'] . "%")
+        ->orwhere('company', $request['company'])
+        ->get();
+        
+        $companies = Companies::all();
+        return view('employees.index', compact('employees', 'companies'));
     }
 }

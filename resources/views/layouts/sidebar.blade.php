@@ -23,8 +23,17 @@
                         <p>Employees</p>
                     </a>
                 </li>
+                
 
             </ul>
+            <li class="nav-item">
+            <a href="{{ url('daily-quotes') }}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Daily Quotes
+              </p>
+            </a>
+          </li>
         </li>
 
     </ul>
